@@ -9,6 +9,7 @@ import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.openqa.selenium.WebDriver;
 
 /**
  * 結合テスト ログイン機能①
@@ -18,6 +19,15 @@ import org.junit.jupiter.api.TestMethodOrder;
 @TestMethodOrder(OrderAnnotation.class)
 @DisplayName("ケース01 ログイン画面への遷移")
 public class Case01 {
+	private WebDriver chromeDriver;
+
+	public WebDriver getChromeDriver() {
+		return chromeDriver;
+	}
+
+	public void setChromeDriver(WebDriver chromeDriver) {
+		this.chromeDriver = chromeDriver;
+	}
 
 	/** 前処理 */
 	@BeforeAll
@@ -34,8 +44,12 @@ public class Case01 {
 	@Test
 	@Order(1)
 	@DisplayName("テスト01 トップページURLでアクセス")
-	void test01() {
-		// TODO ここに追加
+	void test01() throws Exception {
+
+		goTo("http://localhost:8080/lms/");
+
+		getEvidence(this);
+
 	}
 
 }
