@@ -45,9 +45,9 @@ public class Case01 {
 	@Order(1)
 	@DisplayName("テスト01 トップページURLでアクセス")
 	void test01() throws Exception {
-
+		//テスト処理
 		goTo("http://localhost:8080/lms/");
-
+		//エビデンスの取得
 		getEvidence(this);
 
 	}
