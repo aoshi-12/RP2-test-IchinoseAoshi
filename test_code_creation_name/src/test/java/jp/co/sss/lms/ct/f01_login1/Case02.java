@@ -40,6 +40,8 @@ public class Case02 {
 	void test01() {
 		//テスト処理
 		goTo("http://localhost:8080/lms/");
+		//エビデンスの取得
+		getEvidence(this);
 	}
 
 	@Test
