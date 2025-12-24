@@ -9,10 +9,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -93,8 +90,8 @@ public class WebDriverUtils {
 	public static void getEvidence(Object instance) {
 		File tempFile = ((TakesScreenshot) webDriver).getScreenshotAs(OutputType.FILE);
 		try {
-			String className = instance.getClass().getSimpleName();
-			String methodName = instance.getClass().getName();
+			String className = instance.getClass().getEnclosingClass().getSimpleName();
+			String methodName = instance.getClass().getEnclosingMethod().getName();
 			Files.move(tempFile, new File("evidence\\" + className + "_" + methodName + ".png"));
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -115,42 +112,6 @@ public class WebDriverUtils {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-
-	//ログインID	
-	@FindBy(name = "loginId")
-	private WebElement loginIdInput;
-	//パスワード
-	@FindBy(name = "password")
-	private WebElement passwordInput;
-	//ログインボタン
-	@FindBy(css = ".btn.btn-primary")
-	private WebElement loginButton;
-
-	//ログインID入力
-	public void enterUsername(String loginId) {
-		loginIdInput.clear();
-		loginIdInput.sendKeys(loginId);
-	}
-
-	//パスワード入力
-	public void enterPassword(String password) {
-		passwordInput.clear();
-		passwordInput.sendKeys(password);
-	}
-
-	//ログインボタン押下
-	public void clickLoginButton() {
-		loginButton.click();
-	}
-
-	//ログインメソッド
-	public void login(String loginId, String password) {
-		PageFactory.initElements(WebDriverUtils.webDriver, this);
-
-		enterUsername(loginId);
-		enterPassword(password);
-		clickLoginButton();
 	}
 
 }
