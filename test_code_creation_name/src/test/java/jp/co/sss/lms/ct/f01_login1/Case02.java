@@ -12,10 +12,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-
-import jp.co.sss.lms.ct.util.WebDriverUtils;
 
 /**
  * 結合テスト ログイン機能①
@@ -50,31 +46,18 @@ public class Case02 {
 		});
 	}
 
-	//ログインID	
-	@FindBy(name = "loginId")
-	private WebElement loginIdInput;
-	//パスワード
-	@FindBy(name = "password")
-	private WebElement passwordInput;
-	//ログインボタン
-	@FindBy(css = ".btn.btn-primary")
-	private WebElement loginButton;
-
-	public void login(String id, String pw) {
-		PageFactory.initElements(webDriver, this);
-
-		clearAndSendKeys(loginIdInput, id);
-		clearAndSendKeys(passwordInput, pw);
-		clickLoginButton(loginButton);
-	}
-
 	@Test
 	@Order(2)
 	@DisplayName("テスト02 DBに登録されていないユーザーでログイン")
 	void test02() {
-
-		PageFactory.initElements(WebDriverUtils.webDriver, this);
-		login("StudentAA0111", "StudentAA0111");
+		WebElement loginId = webDriver.findElement(By.id("loginId"));
+		loginId.clear();
+		loginId.sendKeys("StudentAA0111");
+		WebElement password = webDriver.findElement(By.id("password"));
+		password.clear();
+		password.sendKeys("StudentAA0111");
+		WebElement loginButton = webDriver.findElement(By.cssSelector("input[type='submit'][value='ログイン']"));
+		loginButton.click();
 
 		//テスト処理
 		String errorMessage = webDriver.findElement(By.cssSelector(".help-inline.error")).getText();
