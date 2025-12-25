@@ -61,6 +61,7 @@ public class Case05 {
 		password.sendKeys("Aa123456");
 		WebElement loginButton = webDriver.findElement(By.cssSelector("input[type='submit'][value='ログイン']"));
 		loginButton.click();
+		pageLoadTimeout(5);
 		//テスト処理
 		assertEquals("コース詳細 | LMS", webDriver.getTitle());
 		//エビデンスの取得
@@ -110,13 +111,14 @@ public class Case05 {
 	void test05() {
 		WebElement form = webDriver.findElement(By.id("form"));
 		form.clear();
-		form.sendKeys("研修");
+		form.sendKeys("事業所");
 		WebElement button = webDriver.findElement(By.cssSelector("input[type='submit']"));
 		button.click();
+		pageLoadTimeout(5);
 		//テスト処理
 		List<WebElement> results = webDriver.findElements(By.cssSelector("dt.mb10 > span:last-child"));
 		for (WebElement result : results) {
-			assertTrue(result.getText().contains("研修"));
+			assertTrue(result.getText().contains("事業所"));
 		}
 		//エビデンスの取得
 		getEvidence(new Object() {
